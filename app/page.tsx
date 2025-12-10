@@ -8,7 +8,6 @@ import {
   MapPin,
   Phone,
   Star,
-  Plus,
   Map as MapIcon,
   ArrowLeft,
 } from "lucide-react";
@@ -435,14 +434,6 @@ export default function HomePage() {
                               "fill-yellow-400 text-yellow-400"
                           )}
                         />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Plus className="h-4 w-4 mr-1" />
-                        Plan
                       </Button>
                       <Button
                         size="sm"

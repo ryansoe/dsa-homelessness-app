@@ -2,16 +2,35 @@
 
 import { use } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Phone, Globe, MapPin, Clock, Star, Plus, Copy, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  Phone,
+  Globe,
+  MapPin,
+  Clock,
+  Star,
+  Copy,
+  ExternalLink,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { mockResources } from "@/data/resources";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-export default function ResourceDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ResourceDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const router = useRouter();
   const { id } = use(params);
   const resource = mockResources.find((r) => r.id === id);
@@ -42,12 +61,6 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
     .filter((r) => r.type === resource.type && r.id !== resource.id)
     .slice(0, 3);
 
-  const handleAddToPlan = () => {
-    toast.success("Added to plan", {
-      description: `${resource.name} has been added to your client's plan.`,
-    });
-  };
-
   const handleCopyToNotes = () => {
     toast.success("Copied to notes", {
       description: "Resource information copied to your notes.",
@@ -75,11 +88,7 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
 
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-2">
-          <Button onClick={handleAddToPlan}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add to Plan
-          </Button>
-          <Button variant="outline" onClick={handleCopyToNotes}>
+          <Button onClick={handleCopyToNotes}>
             <Copy className="h-4 w-4 mr-2" />
             Copy to Notes
           </Button>
@@ -164,7 +173,9 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
                       <Clock className="h-5 w-5 text-muted-foreground mt-0.5" />
                       <div>
                         <p className="font-medium">Hours</p>
-                        <p className="text-muted-foreground">{resource.hours}</p>
+                        <p className="text-muted-foreground">
+                          {resource.hours}
+                        </p>
                       </div>
                     </div>
                   </>
@@ -183,7 +194,10 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
                     <span className="font-medium">Bed Status</span>
                     <Badge
                       variant="outline"
-                      className={cn("capitalize", getBedStatusColor(resource.bedStatus))}
+                      className={cn(
+                        "capitalize",
+                        getBedStatusColor(resource.bedStatus)
+                      )}
                     >
                       {resource.bedStatus}
                     </Badge>
@@ -200,13 +214,18 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
 
                   <div className="flex items-center justify-between">
                     <span className="font-medium">Status</span>
-                    <Badge variant={resource.status === "open" ? "default" : "secondary"}>
+                    <Badge
+                      variant={
+                        resource.status === "open" ? "default" : "secondary"
+                      }
+                    >
                       {resource.status}
                     </Badge>
                   </div>
 
                   <div className="text-xs text-muted-foreground">
-                    Last updated: {new Date(resource.lastUpdated).toLocaleString()}
+                    Last updated:{" "}
+                    {new Date(resource.lastUpdated).toLocaleString()}
                   </div>
                 </CardContent>
               </Card>
@@ -221,28 +240,48 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <p className="text-sm font-medium mb-1">Walk-ins</p>
-                    <Badge variant={resource.acceptsWalkIns ? "default" : "secondary"}>
+                    <Badge
+                      variant={
+                        resource.acceptsWalkIns ? "default" : "secondary"
+                      }
+                    >
                       {resource.acceptsWalkIns ? "Accepted" : "Not accepted"}
                     </Badge>
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium mb-1">Co-occurring Disorders</p>
-                    <Badge variant={resource.acceptsCoOccurring ? "default" : "secondary"}>
-                      {resource.acceptsCoOccurring ? "Accepted" : "Not accepted"}
+                    <p className="text-sm font-medium mb-1">
+                      Co-occurring Disorders
+                    </p>
+                    <Badge
+                      variant={
+                        resource.acceptsCoOccurring ? "default" : "secondary"
+                      }
+                    >
+                      {resource.acceptsCoOccurring
+                        ? "Accepted"
+                        : "Not accepted"}
                     </Badge>
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium mb-1">Sobriety Required</p>
-                    <Badge variant={resource.requiresSobriety ? "secondary" : "default"}>
+                    <p className="text-sm font-medium mb-1">
+                      Sobriety Required
+                    </p>
+                    <Badge
+                      variant={
+                        resource.requiresSobriety ? "secondary" : "default"
+                      }
+                    >
                       {resource.requiresSobriety ? "Yes" : "No"}
                     </Badge>
                   </div>
 
                   {resource.genderRestrictions && (
                     <div>
-                      <p className="text-sm font-medium mb-1">Gender Restrictions</p>
+                      <p className="text-sm font-medium mb-1">
+                        Gender Restrictions
+                      </p>
                       <Badge variant="outline" className="capitalize">
                         {resource.genderRestrictions}
                       </Badge>
@@ -253,7 +292,9 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
                 {resource.ageRestrictions && (
                   <div>
                     <p className="text-sm font-medium mb-1">Age Restrictions</p>
-                    <p className="text-muted-foreground">{resource.ageRestrictions}</p>
+                    <p className="text-muted-foreground">
+                      {resource.ageRestrictions}
+                    </p>
                   </div>
                 )}
 
@@ -264,18 +305,21 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
                   </div>
                 )}
 
-                {resource.insuranceAccepted && resource.insuranceAccepted.length > 0 && (
-                  <div>
-                    <p className="text-sm font-medium mb-2">Insurance Accepted</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {resource.insuranceAccepted.map((insurance) => (
-                        <Badge key={insurance} variant="secondary">
-                          {insurance}
-                        </Badge>
-                      ))}
+                {resource.insuranceAccepted &&
+                  resource.insuranceAccepted.length > 0 && (
+                    <div>
+                      <p className="text-sm font-medium mb-2">
+                        Insurance Accepted
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {resource.insuranceAccepted.map((insurance) => (
+                          <Badge key={insurance} variant="secondary">
+                            {insurance}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </CardContent>
             </Card>
 
@@ -350,5 +394,3 @@ export default function ResourceDetailPage({ params }: { params: Promise<{ id: s
     </div>
   );
 }
-
-

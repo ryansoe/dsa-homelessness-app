@@ -3,13 +3,26 @@
 import { useState } from "react";
 import { Plus, Mic, Lock, Clock, FileText, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { mockNotes } from "@/data/mock-data";
 import { Note } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -17,7 +30,9 @@ import { toast } from "sonner";
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>(mockNotes);
-  const [selectedNote, setSelectedNote] = useState<Note | null>(notes[0] || null);
+  const [selectedNote, setSelectedNote] = useState<Note | null>(
+    notes[0] || null
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const [editedPurpose, setEditedPurpose] = useState("");
@@ -137,7 +152,9 @@ export default function NotesPage() {
                   </div>
                   <Button
                     onClick={() => {
-                      const input = document.getElementById("title") as HTMLInputElement;
+                      const input = document.getElementById(
+                        "title"
+                      ) as HTMLInputElement;
                       if (input.value) {
                         handleCreateNote(input.value);
                         input.value = "";
@@ -168,10 +185,13 @@ export default function NotesPage() {
               onClick={() => handleSelectNote(note)}
             >
               <div className="flex items-start justify-between mb-2">
-                <h3 className="font-medium text-sm line-clamp-1">{note.title}</h3>
-                {note.encrypted && <Lock className="h-3 w-3 text-muted-foreground flex-shrink-0" />}
+                <h3 className="font-medium text-sm line-clamp-1">
+                  {note.title}
+                </h3>
               </div>
-              <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{note.content}</p>
+              <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
+                {note.content}
+              </p>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Clock className="h-3 w-3" />
                 <span>{formatDate(note.updatedAt)}</span>
@@ -188,7 +208,9 @@ export default function NotesPage() {
             {/* Note Header */}
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <h1 className="text-2xl font-bold mb-2">{selectedNote.title}</h1>
+                <h1 className="text-2xl font-bold mb-2">
+                  {selectedNote.title}
+                </h1>
                 <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <FileText className="h-4 w-4" />
@@ -198,12 +220,6 @@ export default function NotesPage() {
                     <Clock className="h-4 w-4" />
                     Updated: {formatDate(selectedNote.updatedAt)}
                   </div>
-                  {selectedNote.encrypted && (
-                    <Badge variant="secondary" className="flex items-center gap-1">
-                      <Lock className="h-3 w-3" />
-                      Encrypted
-                    </Badge>
-                  )}
                 </div>
               </div>
               <div className="flex gap-2">
@@ -221,7 +237,10 @@ export default function NotesPage() {
                 ) : (
                   <>
                     <Button onClick={handleSaveNote}>Save</Button>
-                    <Button variant="outline" onClick={() => setIsEditing(false)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsEditing(false)}
+                    >
                       Cancel
                     </Button>
                   </>
@@ -232,14 +251,18 @@ export default function NotesPage() {
             {/* Template Tabs */}
             <Tabs defaultValue="structured" className="w-full">
               <TabsList>
-                <TabsTrigger value="structured">Structured Template</TabsTrigger>
+                <TabsTrigger value="structured">
+                  Structured Template
+                </TabsTrigger>
                 <TabsTrigger value="freeform">Free-form</TabsTrigger>
               </TabsList>
 
               <TabsContent value="structured" className="space-y-4 mt-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-base">Purpose / Type of Meeting</CardTitle>
+                    <CardTitle className="text-base">
+                      Purpose / Type of Meeting
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     {isEditing ? (
@@ -259,7 +282,9 @@ export default function NotesPage() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-base">Intervention / Progress</CardTitle>
+                    <CardTitle className="text-base">
+                      Intervention / Progress
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     {isEditing ? (
@@ -271,7 +296,8 @@ export default function NotesPage() {
                       />
                     ) : (
                       <p className="text-muted-foreground whitespace-pre-wrap">
-                        {selectedNote.intervention || "No intervention documented"}
+                        {selectedNote.intervention ||
+                          "No intervention documented"}
                       </p>
                     )}
                   </CardContent>
@@ -291,7 +317,8 @@ export default function NotesPage() {
                       />
                     ) : (
                       <p className="text-muted-foreground whitespace-pre-wrap">
-                        {selectedNote.followUp || "No follow-up steps specified"}
+                        {selectedNote.followUp ||
+                          "No follow-up steps specified"}
                       </p>
                     )}
                   </CardContent>
@@ -314,7 +341,8 @@ export default function NotesPage() {
                       </Button>
                     </div>
                     <CardDescription>
-                      Free-form note taking. Dictation feature would enable voice-to-text.
+                      Free-form note taking. Dictation feature would enable
+                      voice-to-text.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -342,10 +370,13 @@ export default function NotesPage() {
                 <div className="flex items-start gap-3">
                   <Lock className="h-5 w-5 text-primary mt-0.5" />
                   <div className="text-sm">
-                    <p className="font-medium text-primary mb-1">HIPAA-Compliant Storage</p>
+                    <p className="font-medium text-primary mb-1">
+                      HIPAA-Compliant Storage
+                    </p>
                     <p className="text-muted-foreground">
-                      All notes are encrypted at rest and in transit. Access is logged and auditable.
-                      Notes sync automatically when connected.
+                      All notes are encrypted at rest and in transit. Access is
+                      logged and auditable. Notes sync automatically when
+                      connected.
                     </p>
                   </div>
                 </div>
@@ -367,5 +398,3 @@ export default function NotesPage() {
     </div>
   );
 }
-
-
